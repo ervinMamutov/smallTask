@@ -16,6 +16,12 @@ def run_game():
     screen = pygame.display.set_mode((1200, 800))
     pygame.display.set_capion('Alien Inavasion')
 
+    # Set the background color.
+    # Colors in Pygame are specified as RGB colors: red(0, 255, 0), green(0, 255, 0),
+    # blue(0, 0, 255)
+
+    bg_color = (230, 230, 230)
+
     # Start the main loop for the game.
 
     # The game is controlled by a while loop
@@ -23,6 +29,11 @@ def run_game():
     while True:
 
         # Watch for keyboard and mouse events.
+
+        # Redraw the screen during each pass through the loop
+        # Fill the screen with the background color using the screen.fill() method, which takes
+        # only one argument: a color.
+        screen.fill(bg_color)
 
         # The for loop at is an event loop
         for event in pygame.event.get():
@@ -42,6 +53,7 @@ def run_game():
         # elements around, pygame.display.flip() will continually update the display to show the
         # new positions of elements and hide the old ones, creating the illusion of smooth movement.
         pygame.display.flip()
+
 
 # which initializes the game and starts the main loop.
 run_game()
