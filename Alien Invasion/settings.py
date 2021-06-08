@@ -12,7 +12,15 @@ class Settings():
 
     def __init__(self):
         """Initialize the game's settings."""
-        # Screen settings
+        # initializes background setting that Pygame needs to work properly
+        # Screen settings create a display windows called screen
+        # on which we'll draw all of the game elements.
+        # The arguments (1200, 800) is a tuple defines
+        # the dimensions of the game windows
+
         self.screen_width = 1200
         self.screen_height = 800
+        # Set the background color.
+        # Colors in Pygame are specified as RGB colors: red(0, 255, 0), green(0, 255, 0),
+        # blue(0, 0, 255)
         self.bg_color = (230, 230, 230)
