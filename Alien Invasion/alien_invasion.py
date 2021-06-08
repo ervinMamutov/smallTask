@@ -1,26 +1,23 @@
 import sys
 import pygame
+from settings import Settings
 
 
 # Alien Invasion starts as the this function
 def run_game():
     """
-    Initialize game and create a screen object.
+    Initialize pygame, settings, and screen object.
 
     """
-    # initializes background setting that Pygame needs to work properly
+    # We import Settings into the main program file, and then create an instance
+    # of Settings and store it in ai_settings after making the call to:
     pygame.init()
-    # create a display windows called screen on which we'll draw all of
-    # the game elements.
-    # The arguments (1200, 800) is a tuple defines the dimensions of the game windows
-    screen = pygame.display.set_mode((1200, 800))
-    pygame.display.set_capion('Alien Inavasion')
 
-    # Set the background color.
-    # Colors in Pygame are specified as RGB colors: red(0, 255, 0), green(0, 255, 0),
-    # blue(0, 0, 255)
-
-    bg_color = (230, 230, 230)
+    ai_settings = Settings()
+    # When create a screen
+    screen = pygame.display.set_mode(
+        (ai_settings.screen_width, ai_settings.screen_height))
+    pygame.display.set_caption('Alien Inavasion')
 
     # Start the main loop for the game.
 
@@ -31,9 +28,10 @@ def run_game():
         # Watch for keyboard and mouse events.
 
         # Redraw the screen during each pass through the loop
-        # Fill the screen with the background color using the screen.fill() method, which takes
-        # only one argument: a color.
-        screen.fill(bg_color)
+        # Fill the screen with the background color using the screen.fill() method,
+        # which takes only one argument: a color.
+        # access the background color when filling the screen at as well.
+        screen.fill(ai_settings.bg_color)
 
         # The for loop at is an event loop
         for event in pygame.event.get():
