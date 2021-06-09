@@ -1,7 +1,8 @@
-import sys
 import pygame
+
 from settings import Settings
 from ship import Ship
+import game_functions as gf
 
 
 # Alien Invasion starts as the this function
@@ -33,8 +34,7 @@ def run_game():
     # The game is controlled by a while loop
     # that contains an event loop and code that manages screen updates
     while True:
-
-        # Watch for keyboard and mouse events.
+        gf.chek_events()
 
         # Redraw the screen during each pass through the loop
         # Fill the screen with the background color using the screen.fill() method,
@@ -48,15 +48,7 @@ def run_game():
 
         ship.blitme()
 
-        # The for loop at is an event loop
-        for event in pygame.event.get():
-            # To access the event detected by Pygame, we'll use the pygame.event.get() method.
-            # Any keyboard or mouse event will cause the for loop to run.
-            # Inside the loop, we'll write a series of if statements to detect and respond to specific events.
-            # For example, when the player clicks the game window's close button, a pygame.QUIT event is
-            # detected and we call sys.exit() to exit the game.
-            if event.type == pygame.QUIT:
-                sys.exit()
+
 
         # Make the most recently drawn screen visible.
 
