@@ -37,7 +37,7 @@ def run_game():
         # These two functions make the while loop simpler and will make further
         # development easier. Instead of working inside run_game(), we can do most
         # of our work in the module game_functions.
-        gf.chek_events()
+        gf.chek_events(ship)
         gf.update_screen(ai_settings, screen, ship)
 
 
