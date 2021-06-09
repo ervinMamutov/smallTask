@@ -38,6 +38,7 @@ def run_game():
         # development easier. Instead of working inside run_game(), we can do most
         # of our work in the module game_functions.
         gf.chek_events(ship)
+        ship.update()
         gf.update_screen(ai_settings, screen, ship)
 
 
