@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 
 # Alien Invasion starts as the this function
@@ -19,6 +20,14 @@ def run_game():
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption('Alien Inavasion')
 
+    # Make a ship
+
+    # We import Ship ans then make an instance of Ship (named ship) after the screen
+    # has been created. It must come before the main while loop so we don't make a new
+    # instance of the ship on each pass through the loop.
+
+    ship = Ship(screen)
+
     # Start the main loop for the game.
 
     # The game is controlled by a while loop
@@ -31,7 +40,13 @@ def run_game():
         # Fill the screen with the background color using the screen.fill() method,
         # which takes only one argument: a color.
         # access the background color when filling the screen at as well.
+
         screen.fill(ai_settings.bg_color)
+
+        # We draw the ship onscreen by calling ship.blitme() after filling the
+        # background, so the ship appears on top of the background.
+
+        ship.blitme()
 
         # The for loop at is an event loop
         for event in pygame.event.get():
