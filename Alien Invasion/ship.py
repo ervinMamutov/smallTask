@@ -11,7 +11,7 @@ class Ship():
 
         # Load the ship image and get its rect.
         # This finction returns a surface representing the ship, which we store in:
-        self.image = pygame.image.load('images\ship.bmp')
+        self.image = pygame.image.load('/home/akmen/PycharmProjects/Alien Invasion/images/ship.bmp')
         # Once the image is loaded, we use get_rect() to access the surface's rect attribute:
         self.rect = self.image.get_rect()
         # We'll position the ship at the bottom center of the screen. To do so,
@@ -21,8 +21,8 @@ class Ship():
         # Start each new ship at the bottom center of screen.
         # Make the value of self.rect.centrex (the x-coordinate of the ship's center)
         # match the centerx attribute of the screen's rect:
-        self.rext.ctnterx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bootom
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.bottom = self.screen_rect.bottom
     # we define the blitme() method, which will draw the im
     def blitme(self):
         """Draw the ship at its current location."""
