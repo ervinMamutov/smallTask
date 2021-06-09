@@ -38,11 +38,15 @@ def chek_events(ship):
                 # modify how the game responds when the player presses the right arrow key:
                 # instead of changing the ship's position directly, merely set moving_right to True
                 ship.moving_right = True
+            elif event.key == pygame.K_LEFT:
+                ship.moving_left = True
         # Add a new elif block, which responds to KEYUP events. When the player releases the
         # right arrow key (K_RIGHT), we set moving_right to False.
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 ship.moving_right = False
+            elif event.key == pygame.K_LEFT:
+                ship.moving_left = False
 
                 # If the right arrow key was pressed, we move the ship to the right
                 # by increasing the value of ship.rect.centerx by event.type == pygame.KEYDOWN

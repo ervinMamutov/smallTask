@@ -27,12 +27,15 @@ class Ship():
         # Movement flag
         # Add a self.moving_right attribute in this metod and set it to False initially
         self.moving_right = False
+        self.moving_left = False
 
     # Add update(), which moves the ship right if the flag is True
     def update(self):
-        """Update the ship's position based on the movenent flag."""
+        """Update the ship's position based on the movement flags."""
         if self.moving_right:
             self.rect.centerx += 1
+        if self.moving_left:
+            self.rect.centerx -= 1
     # we define the blitme() method, which will draw the im
     def blitme(self):
         """Draw the ship at its current location."""
