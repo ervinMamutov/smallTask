@@ -23,6 +23,16 @@ class Ship():
         # match the centerx attribute of the screen's rect:
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+
+        # Movement flag
+        # Add a self.moving_right attribute in this metod and set it to False initially
+        self.moving_right = False
+
+    # Add update(), which moves the ship right if the flag is True
+    def update(self):
+        """Update the ship's position based on the movenent flag."""
+        if self.moving_right:
+            self.rect.centerx += 1
     # we define the blitme() method, which will draw the im
     def blitme(self):
         """Draw the ship at its current location."""
