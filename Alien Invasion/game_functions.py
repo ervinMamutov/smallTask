@@ -2,15 +2,44 @@ import sys
 
 import pygame
 
+
 # This module imports sys and pygame, which are used in the event cheking loop.
 # The function needs no parameters at this point, and the body is copied from
 # the event loop in alien_invasion.py
 
-def chek_events():
+# We give the check_events() funktion a ship parameter, because  the ship needs
+# to move to the rihgt when the right arrow key is pressed.
+
+def chek_events(ship):
     """Respond to keypresses and mouse events."""
 
-    # Watch for keyboard and mouse events.
-    # The for loop at is an event loop
+    for event in pygame.event.get():
+        # To access the event detected by Pygame, we'll use the pygame.event.get() method.
+        # Any keyboard or mouse event will cause the for loop to run.
+        # Inside the loop, we'll write a series of if statements to detect and respond to specific events.
+        # For example, when the player clicks the game window's close button, a pygame.QUIT event is
+        # detected and we call sys.exit() to exit the game.
+        if event.type == pygame.QUIT:
+            sys.exit()
+        # Watch for keyboard and mouse events.
+        # The for loop at is an event loop
+
+        # Inside check_events() we add an elif block to the event loop to respond when
+        # Pygame detects a KEYDOWN event
+
+        elif event.type == pygame.KEYDOWN:
+
+            # We check if the key pressed is the right arrow key (pygame.K_RIGHT)
+            # by reading the event.key attribute.
+
+            if event.key == pygame.K_RIGHT:
+                # Move the ship to the right
+
+                # If the right arrow key was pressed, we move the ship to the right
+                # by increasing the value of ship.rect.centerx by event.type == pygame.KEYDOWN
+
+                ship.rect.centerx += 1
+
 
 # The new update_screen() function takes three parameters: ai_settings, screen and ship.
 def update_screen(ai_settings, screen, ship):
@@ -38,12 +67,3 @@ def update_screen(ai_settings, screen, ship):
     # new positions of elements and hide the old ones, creating the illusion of smooth movement.
 
     pygame.display.flip()
-
-    for event in pygame.event.get():
-        # To access the event detected by Pygame, we'll use the pygame.event.get() method.
-        # Any keyboard or mouse event will cause the for loop to run.
-        # Inside the loop, we'll write a series of if statements to detect and respond to specific events.
-        # For example, when the player clicks the game window's close button, a pygame.QUIT event is
-        # detected and we call sys.exit() to exit the game.
-        if event.type == pygame.QUIT:
-            sys.exit()
