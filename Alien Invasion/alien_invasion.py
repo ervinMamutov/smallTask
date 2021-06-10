@@ -27,7 +27,7 @@ def run_game():
     # has been created. It must come before the main while loop so we don't make a new
     # instance of the ship on each pass through the loop.
 
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)
 
     # Start the main loop for the game.
 

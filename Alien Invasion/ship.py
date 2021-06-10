@@ -5,9 +5,19 @@ import pygame
 class Ship():
     # The __init__() method of Ship takes two parameters: the  self reference and
     # the screen where we'll draw the ship.
-    def __init__(self, screen):
+    # We add ai_settings to the list of parameters.
+    # So the ship will have access to its speed seting.
+    def __init__(self, ai_settings, screen):
         """Initialize the ship and set its starting position."""
         self.screen = screen
+
+        # Now that we're adjusting the position of the ship by fractions of a pixel,
+        # we need to store the position in a variable thet can store a decimal value.
+        # You can use a decimal value to set a rect's attribute, but the rect will store
+        # only the integer portion of that value. To store the ship's position accurately,
+        # we define a new attribute self.center, which can hols decimal values.
+
+        self.ai_settings = ai_settings
 
         # Load the ship image and get its rect.
         # This finction returns a surface representing the ship, which we store in:
@@ -19,10 +29,18 @@ class Ship():
         self.screen_rect = screen.get_rect()
 
         # Start each new ship at the bottom center of screen.
+
         # Make the value of self.rect.centrex (the x-coordinate of the ship's center)
         # match the centerx attribute of the screen's rect:
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+
+        # Store a decimal value for the ship's center.
+
+        # We used the float() function to convert the value of self.rect.centerx to a decimal
+        # and store this value in self.center.
+
+        self.center = float(self.rect.centerx)
 
         # Movement flag
         # Add a self.moving_right attribute in this metod and set it to False initially
@@ -32,10 +50,22 @@ class Ship():
     # Add update(), which moves the ship right if the flag is True
     def update(self):
         """Update the ship's position based on the movement flags."""
+        # Update the ship's center value, not the rect.
         if self.moving_right:
-            self.rect.centerx += 1
+
+            # When we change the ship's position in update(), the value of self.center is
+            # adjusted by the amount stored in ai_settings.ship_speed_factor.
+
+            self.center += self.ai_settings.ship_speed_factor
         if self.moving_left:
-            self.rect.centerx -= 1
+            self.center -= self.ai_settings.ship_speed_factor
+
+        # Update rect object from self.center.
+
+        # We use the new value to update portion of self.rect.centerx, which controls
+        # the position of the ship.
+
+        self.rect.centerx = self.center
     # we define the blitme() method, which will draw the im
     def blitme(self):
         """Draw the ship at its current location."""

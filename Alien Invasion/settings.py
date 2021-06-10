@@ -12,6 +12,10 @@ class Settings():
 
     def __init__(self):
         """Initialize the game's settings."""
+
+        # Ship settings
+        self.ship_speed_factor = 1.5
+
         # initializes background setting that Pygame needs to work properly
         # Screen settings create a display windows called screen
         # on which we'll draw all of the game elements.
