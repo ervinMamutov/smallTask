@@ -38,3 +38,23 @@ class Bullet(Sprite):
         self.color = ai_settings.bullet_color
         self.speed_factor = ai_settings.bullet_speed_factor
 
+    # The update() method manages the bullet's position. When a bullet is fired, it moves up
+    # the screen, which corressponds to a decreasing y-coordinate value; so to update the position.
+    def update(self):
+        """Move the bullet up the screen."""
+        # Update the decimal position  of the bullet.
+        # We subtract the amount stored in self.speed_factor from self.y.
+        # The speed_factor attribute allows us to increase the spees of the bullets as
+        # the game progresses jr as needed to refine the game's behavior. Once fired,
+        # a bullet's x-coordinate value never changes, so it will only travel vertically
+        # in a straight line.
+        self.y -= self.speed_factor
+        # Update the rect position.
+        # We then use the value of delf.y to set the value of self.rect.y.
+        self.rect.y = self.y
+
+    # When we want to draw a bullet, we'll call draw_bullet(). This function fills the part of
+    # the screen defined by the bullet's rect with the color stored in self.color.
+    def draw_bullet(self):
+        """Draw the bullet to the screen"""
+        pygame.draw.rect(self.screen, self.color, self.rect)
