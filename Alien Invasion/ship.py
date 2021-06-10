@@ -51,13 +51,23 @@ class Ship():
     def update(self):
         """Update the ship's position based on the movement flags."""
         # Update the ship's center value, not the rect.
-        if self.moving_right:
+
+        # This code checks the position of the ship befor changing the value of self.center.
+        # The code self.rect.right returns the x-coordinate value of the right
+        # edge of the ship's rect. If this value is less than the value returned
+        # by self.screen_rect.right, the ship hasn't reached the right edge of the screen.
+
+        if self.moving_right and self.rect.right < self.screen_rect.right:
 
             # When we change the ship's position in update(), the value of self.center is
             # adjusted by the amount stored in ai_settings.ship_speed_factor.
 
             self.center += self.ai_settings.ship_speed_factor
-        if self.moving_left:
+
+        # The same goes for the left edge: if the value of the left side of the rect is
+        # greayer than zero, the ship hasn't reached the left edge of the screen.
+
+        if self.moving_left and self.rect.left > 0:
             self.center -= self.ai_settings.ship_speed_factor
 
         # Update rect object from self.center.
