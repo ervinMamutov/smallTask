@@ -1,4 +1,6 @@
 import pygame
+# We import Group from pygame.sprite.
+from  pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
@@ -28,6 +30,10 @@ def run_game():
     # instance of the ship on each pass through the loop.
 
     ship = Ship(ai_settings, screen)
+    # Make a group to store bullets in.
+    # We make an instance of Group and call it bullets. This group is created outside of the
+    # while loop so we don't create a new group of bullets each time the loop cycles.
+    bullets = Group()
 
     # Start the main loop for the game.
 
@@ -37,9 +43,17 @@ def run_game():
         # These two functions make the while loop simpler and will make further
         # development easier. Instead of working inside run_game(), we can do most
         # of our work in the module game_functions.
-        gf.chek_events(ship)
+        gf.chek_events(ai_settings, screen, ship, bullets)
         ship.update()
-        gf.update_screen(ai_settings, screen, ship)
+
+        # We pass bullets to chek_events() snd update_screen(). We'll need to work with bullets
+        # in check_events() when the spacbar is pressed, and we'll need to update the bullets that
+        # are being drawn to the sdreen in update_screen().
+        # When you call update() on a group(), the group automatically calls upsate() for each sprite
+        # in the group. The line bullets.update() calls bullet.update() for each bullet
+        # we place in the group bullets.
+        bullets.update()
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 
 
