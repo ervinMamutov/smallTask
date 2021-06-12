@@ -116,3 +116,19 @@ def update_screen(ai_settings, screen, ship, bullets):
     # new positions of elements and hide the old ones, creating the illusion of smooth movement.
 
     pygame.display.flip()
+
+def update_bullets(bullets):
+    """Update position of bullets and get rid of old bullets."""
+    # Update billet positions.
+    bullets.update()
+
+    # Get rid of bullets that have disappeared.
+
+    # You should't remove items from a list or group within
+    # a for loop, so we have to loop over a copy of the group.
+    # We use the copy() method to set up the for loop
+    for bullet in bullets.copy():  # which enable us to modify bullets inside the loop.
+        # We check each bullet to see whether it has disappeared off the top of the screen.
+        if bullet.rect.bottom <= 0:
+            # If it has, we remove it from bullets
+            bullets.remove(bullet)

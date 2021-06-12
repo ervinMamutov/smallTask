@@ -43,8 +43,8 @@ def run_game():
         # These two functions make the while loop simpler and will make further
         # development easier. Instead of working inside run_game(), we can do most
         # of our work in the module game_functions.
-        gf.chek_events(ai_settings, screen, ship, bullets)
-        ship.update()
+        gf.chek_events(ai_settings, screen, ship, bullets) # the main loop check for player input
+        ship.update() # then it updates the position of the ship
 
         # We pass bullets to chek_events() snd update_screen(). We'll need to work with bullets
         # in check_events() when the spacbar is pressed, and we'll need to update the bullets that
@@ -52,22 +52,8 @@ def run_game():
         # When you call update() on a group(), the group automatically calls upsate() for each sprite
         # in the group. The line bullets.update() calls bullet.update() for each bullet
         # we place in the group bullets.
-        bullets.update()
-
-        # Get rid of bullets that have disappeared.
-
-        # You should't remove items from a list or group within
-        # a for loop, so we have to loop over a copy of the group.
-        # We use the copy() method to set up the for loop
-        for bullet in bullets.copy(): # which enable us to modify bullets inside the loop.
-            # We check each bullet to see whether it has disappeared off the top of the screen.
-            if bullet.rect.bottom <= 0:
-                # If it has, we remove it from bullets
-                bullets.remove(bullet)
-        # We insert a print statement to show how many bullets currently exist in the game and verify
-        # that they're being deleted.
-        print(len(bullets))
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_bullets(bullets) # any bullets that have been fired
+        gf.update_screen(ai_settings, screen, ship, bullets) # we than use the updated positions to draw a new screen
 
 
 
