@@ -23,6 +23,10 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     # add it to the group bullets using the add() method: the code bulets.add(new_bullet) stores
     # the new bullets in the group bullets.
     elif event.key == pygame.K_SPACE:
+        fire_bullet(ai_settings, screen, ship, bullets)
+
+    def fire_bullet(ai_settings, screen, ship, bullets):
+        """Fire a bullet if limit not reached yet."""
         # Create a new bullet and add it to the bullet group.
         if len(bullets) < ai_settings.bullets_allowed:
             new_bullet = Bullet(ai_settings, screen, ship)
