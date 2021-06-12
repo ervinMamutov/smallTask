@@ -53,6 +53,20 @@ def run_game():
         # in the group. The line bullets.update() calls bullet.update() for each bullet
         # we place in the group bullets.
         bullets.update()
+
+        # Get rid of bullets that have disappeared.
+
+        # You should't remove items from a list or group within
+        # a for loop, so we have to loop over a copy of the group.
+        # We use the copy() method to set up the for loop
+        for bullet in bullets.copy(): # which enable us to modify bullets inside the loop.
+            # We check each bullet to see whether it has disappeared off the top of the screen.
+            if bullet.rect.bottom <= 0:
+                # If it has, we remove it from bullets
+                bullets.remove(bullet)
+        # We insert a print statement to show how many bullets currently exist in the game and verify
+        # that they're being deleted.
+        print(len(bullets))
         gf.update_screen(ai_settings, screen, ship, bullets)
 
 
