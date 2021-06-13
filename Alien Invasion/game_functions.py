@@ -91,7 +91,7 @@ def chek_events(ai_settings, screen, ship, bullets):
 # The new update_screen() function takes three parameters: ai_settings, screen and ship.
 # We give the bullets parameter to update_screen() at def ehich draws the bullets to the screen.
 
-def update_screen(ai_settings, screen, ship, alien, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     """Update images on the screen and flip to the new screen."""
 
     # Redraw the screen during each pass through the loop
@@ -113,6 +113,7 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
 
     ship.blitme()
     alien.blitme()
+    aliens.draw(screen)
 
     # Make the most recently drawn screen visible.
 

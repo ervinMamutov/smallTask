@@ -24,7 +24,7 @@ def run_game():
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption('Alien Inavasion')
 
-    # Make a ship
+    # Make a ship, a group of bullets, and a group af aliens.
 
     # We import Ship ans then make an instance of Ship (named ship) after the screen
     # has been created. It must come before the main while loop so we don't make a new
@@ -35,6 +35,11 @@ def run_game():
     # We make an instance of Group and call it bullets. This group is created outside of the
     # while loop so we don't create a new group of bullets each time the loop cycles.
     bullets = Group()
+    aliens = Group() # great an empty group to hold all of the aliens in the game
+
+    # Greate the fleet of aliens.
+    gf.create_fleet(ai_settings, screen, aliens) # call new function
+
 
     # Make an alien.
     alien = Alien(ai_settings, screen)
@@ -56,7 +61,7 @@ def run_game():
         # in the group. The line bullets.update() calls bullet.update() for each bullet
         # we place in the group bullets.
         gf.update_bullets(bullets) # any bullets that have been fired
-        gf.update_screen(ai_settings, screen, ship, alien, bullets) # we than use the updated positions to draw a new screen
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets) # we than use the updated positions to draw a new screen
 
 
 
