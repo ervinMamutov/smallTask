@@ -4,6 +4,7 @@ from  pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
+from alien import Alien
 import game_functions as gf
 
 
@@ -35,6 +36,8 @@ def run_game():
     # while loop so we don't create a new group of bullets each time the loop cycles.
     bullets = Group()
 
+    # Make an alien.
+    alien = Alien(ai_settings, screen)
     # Start the main loop for the game.
 
     # The game is controlled by a while loop
@@ -53,7 +56,7 @@ def run_game():
         # in the group. The line bullets.update() calls bullet.update() for each bullet
         # we place in the group bullets.
         gf.update_bullets(bullets) # any bullets that have been fired
-        gf.update_screen(ai_settings, screen, ship, bullets) # we than use the updated positions to draw a new screen
+        gf.update_screen(ai_settings, screen, ship, alien, bullets) # we than use the updated positions to draw a new screen
 
 
 
