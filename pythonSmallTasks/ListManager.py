@@ -26,8 +26,8 @@ while command != '0':
         position = input('enter remove position ')
         if position.isdigit():
             position = int(position) - 1
-            print(len(data))
-            print(data(position))
+            #print(len(data))
+            #print(data(position))
             if 0 < position < len(data):
                 data.pop(position)
             else:
