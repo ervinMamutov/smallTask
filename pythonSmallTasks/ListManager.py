@@ -9,26 +9,26 @@ label = '''                  menu
 
 command = input('enter command number ')
 data = []
+file = open('readme.txt', 'r')
+data = file.readlines()
 while command != '0':
     if command == '1':
-        file = open('readme.txt', 'r')
-        data = file.readlines()
-        print(data)
-        file.close()
+        #data = file.readlines()
         print(data)
     elif command == '2':
         item = input('enter item ')
         if item:
             data.append(item)
     elif command == '3':
-        file = open('readme.txt', 'r')
-        data = file.readlines()
-        print(len(data))
+        #file = open('readme.txt', 'r')
+        #data = file.readlines()
+        print(data)
         position = input('enter remove position ')
         if position.isdigit():
             position = int(position) - 1
+            print(len(data))
+            print(data(position))
             if 0 < position < len(data):
-                print(data[position])
                 data.pop(position)
             else:
                 print('wrong position ')
@@ -48,4 +48,8 @@ while command != '0':
     if command == '0':
         quit()
 
-    command = input(' enter command = ')
+    else:
+        command = input('enter command number ')
+
+
+
