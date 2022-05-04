@@ -6,35 +6,46 @@ label = '''                  menu
     5. save list
     0. exit
     '''
+
 command = input('enter command number ')
 data = []
 while command != '0':
     if command == '1':
+        file = open('readme.txt', 'r')
+        data = file.readlines()
+        print(data)
+        file.close()
         print(data)
     elif command == '2':
         item = input('enter item ')
         if item:
             data.append(item)
     elif command == '3':
+        file = open('readme.txt', 'r')
+        data = file.readlines()
+        print(len(data))
         position = input('enter remove position ')
         if position.isdigit():
             position = int(position) - 1
             if 0 < position < len(data):
+                print(data[position])
                 data.pop(position)
             else:
                 print('wrong position ')
     if command == '4':
         value = input('enter value ')
-        # i = 0
-        # while i < len(data):
         if value in data:
             data.remove(value)
+            print('remove ', value)
+        else:
+            print(value, ' not found ')
     if command == '5':
         file = open('readme.txt', 'w')
+        print(data)
         for items in data:
-            file.writelines(items+ ', ')
+            file.writelines(items + ', ')
         file.close()
     if command == '0':
         quit()
 
-    command = input('enter command = ')
+    command = input(' enter command = ')
