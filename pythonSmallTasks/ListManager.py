@@ -11,6 +11,7 @@ command = input('enter command number ')
 data = []
 file = open('readme.txt', 'r')
 data = file.readlines()
+file.close()
 while command != '0':
     if command == '1':
         #data = file.readlines()
@@ -40,10 +41,10 @@ while command != '0':
         else:
             print(value, ' not found ')
     if command == '5':
-        file = open('readme.txt', 'w')
-        print(data)
+        file = open('readme.txt', 'a')
+        # print(data)
         for items in data:
-            file.writelines(items + ', ')
+            file.writelines(items)
         file.close()
     if command == '0':
         quit()
