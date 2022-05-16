@@ -2,7 +2,7 @@ import random
 
 numberOfStreaks = 0
 data = []
-for experimentNumber in range(10000):
+for experimentNumber in range(1000000):
     a = random.randint(0, 1)
     data.append(a)
 #print(data)
@@ -33,4 +33,4 @@ while i < len(data):
     i += 1
 
 
-print('Вероятность появления серии: %s%%' % (numberOfStreaks / 100))
+print('Вероятность появления серии: %s%%' % (numberOfStreaks / 10000))
