@@ -22,3 +22,21 @@ with open('moby_complite_clean.txt', 'a') as file:
     for word in textList:
         print(word)
         file.write(word + '\n')
+
+# используйте словарь для подсчета вхождений каждого слова,
+mobi_dic = {}
+occurrence = {}
+
+with open('moby_complite_clean.txt', 'w') as infile:
+    for word in infile:
+        mobi_dic = mobi_dic.append(word)
+
+# затем выведите самые частые
+for word in mobi_dic:
+    occurrence[word] = occurrence.get(word, 0) + 1
+
+for word in occurrence:
+    print('word ', word, 'replay ', occurrence[word])
+
+
+# самые редкие слова
