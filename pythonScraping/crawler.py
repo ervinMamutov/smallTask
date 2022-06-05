@@ -1,38 +1,35 @@
-import requests
-
-from bs4 import BeautifulSoup
-
-
 class Content:
-    """
-    Common base class for all articles/page
-    """
 
-    def __init__(self, url, title, body):
+    def __init__(self, topic, url, title, body):
+        self.topic = topic
         self.url = url
         self.title = title
         self.body = body
 
     def print(self):
-        """
-        Flexible printing function controls output
-
-        """
+        print('New artical found for topic: {}'.format(self.topic))
         print('URL: {}'.format(self.url))
-        print('TITLE:{}'.format(self.title))
-        print('BODY:\n{}'.format(self.body))
+        print('TITLE: {}'.format(self.title))
+        print('BODY:\n{}'.format((self.body)))
 
 
 class Website:
-    """
-    Contains information about website structure
-    """
 
-    def __init__(self, name, url, titleTag, bodyTag):
+    def __init__(self, name, url, searchUrl, resultListing, resultUrl, absoluteUrl,
+                 titleTag, bodyTag):
         self.name = name
         self.url = url
+        self.searchUrl = searchUrl
+        self.resultListing = resultListing
+        self.resultUrl = resultUrl
+        self.absoluteUrl = absoluteUrl
         self.titleTag = titleTag
         self.bodyTag = bodyTag
+
+
+import requests
+
+from bs4 import BeautifulSoup
 
 
 class Crawler:
@@ -45,52 +42,52 @@ class Crawler:
         return BeautifulSoup(req.text, 'html.parser')
 
     def safeGet(self, pageObj, selector):
-        """
-        Utilty function used to get a content string from
-        a Beautiful Soup object and a selector. Return an empty
-        string if no object is found for the given selector
-        """
-
-        selectedElems = pageObj.select(selector)
-        if selectedElems is not None and len(selectedElems) > 0:
-            return '\n'.join([elem.get_text() for elem in selectedElems])
+        childObj = pageObj.select(selector)
+        if childObj is not None and len(childObj) > 0:
+            return childObj[0].get_text()
         return ''
 
-    def parse(self, site, url):
+    def search(self, topic, site):
         """
-        Extract content from a given page URL
+        Searches a given website for a given topic and records all pages found
         """
-        bs = self.getPage(url)
-        if bs is not None:
+        bs = self.getPage(site.searchUrl + topic)
+        searchResults = bs.select(site.resultListing)
+        for result in searchResults:
+            url = result.select(site.resultUrl)[0].attrs['href']
+            # Chek to see whether it's a relatove or an absolute URL
+            if (site.absoluteUrl):
+                bs = self.getPage(url)
+            else:
+                bs = self.getPage(site.url + url)
+            if bs is None:
+                print('Something was wrong with that page ot URL. Skipping')
+                return
             title = self.safeGet(bs, site.titleTag)
             body = self.safeGet(bs, site.bodyTag)
             if title != '' and body != '':
-                content = Content(url, title, body)
+                content = Content(topic, title, body, url)
                 content.print()
 
 
 crawler = Crawler()
 
 siteData = [
-    ['O\'Reilly Media', 'https://www.oreilly.com', 'h1', 'section#product-description'],
-    ['Reuters', 'https://www.reuters.com/', 'h1', 'div.StandardArticleBody_body_1gnLA'],
-    ['Brookings', 'https://www.brookings.edu/', 'h1', 'div.post-body'],
-    ['Zn', 'https://zn.ua/', 'h1', 'div.StoryBodyCompanionColumn div p']
+    ['O\'Reilly Media', 'http://oreilly.com', 'https://ssearch.oreilly.com/?q=',
+     'article.product-result', 'p.title a', True, 'h1', 'section#product-description'],
+    ['Reuters', 'http://reuters.com', 'http://www.reuters.com/search/news?blob=', 'div.search-result-content',
+     'h3.search-result-title a', False, 'h1', 'div.StandardArticleBody_body_1gnLA'],
+    ['Brookings', 'http://www.brookings.edu', 'https://www.brookings.edu/search/?s=',
+     'div.list-content article', 'h4.title a', True, 'h1', 'div.post-body']
 ]
 
-websites = []
+sites = []
 for row in siteData:
-    websites.append(Website(row[0], row[1], row[2], row[3]))
+    sites.append(Website(row[0], row[1], row[2],
+                         row[3], row[4], row[5], row[6], row[7]))
 
-crawler.parse(
-    websites[0],
-    'https://www.oreilly.com/library/view/learning-python-5th/9781449355722/')
-crawler.parse(
-    websites[1],
-    'https://www.reuters.com/world/europe/explosions-rock-ukrainian-capital-kyiv-mayor-says-2022-06-05/')
-crawler.parse(
-    websites[2],
-    'https://www.brookings.edu/blog/techtank/2016/03/01/idea-to-retire-old-methods-of-policy-education/')
-crawler.parse(
-    websites[3],
-    'https://zn.ua/macrolevel/kompensatsija-za-razrushennoe-zhile-chto-s-nej-ne-tak.html')
+topics = ['python', 'data science']
+for topic in topics:
+    print('GETTING INFO ABOUT: ' + topic)
+    for targetSite in sites:
+        crawler.search(topic, targetSite)
